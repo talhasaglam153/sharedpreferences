@@ -9,9 +9,9 @@ import android.widget.Toast
 import com.tcoding.loginscreensharedpreferences.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var sharedPreferences: SharedPreferences
-    lateinit var binding: ActivityMainBinding
-    val FILE_NAME = "com.tcoding.loginscreensharedpreferences"
+   lateinit var binding : ActivityMainBinding
+   lateinit var sharedPreferences: SharedPreferences
+   val FILE_NAME = "com.tcoding.loginscreensharedpreferences"
     val USERNAME = "username"
     val PASSWORD = "password"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,31 +21,29 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferences = this.getSharedPreferences(FILE_NAME, MODE_PRIVATE)
 
-        val kayitliUsername : String? = sharedPreferences.getString(USERNAME,null)
 
-        val intent = Intent(applicationContext,HomeScreen::class.java)
-        if(kayitliUsername!= null) {
+
+        val usernameKontrol: String? = sharedPreferences.getString(USERNAME,null)
+
+        val passwordKontrol : String? = sharedPreferences.getString(PASSWORD, null)
+        val intent = Intent(applicationContext, HomeScreen::class.java)
+
+
+
+        if(usernameKontrol != null && passwordKontrol != null){
             startActivity(intent)
         }
 
-
         binding.buttonGiris.setOnClickListener {
-            val gelenUsername:String = binding.editTextEmail.text.toString()
-            val gelenPassword:String = binding.editTextPassword.text.toString()
-            println(gelenUsername)
-            if(!gelenUsername.equals("") && !gelenPassword.equals("")){
-                sharedPreferences.edit().putString(USERNAME,gelenUsername).apply()
-                sharedPreferences.edit().putString(PASSWORD,gelenPassword).apply()
-                startActivity(intent)
-            }
+            val gelenUsername: String = binding.editTextEmail.text.toString()
+            val gelenPassword: String = binding.editTextPassword.text.toString()
+            sharedPreferences.edit().putString(USERNAME,gelenUsername).apply()
+            sharedPreferences.edit().putString(PASSWORD, gelenPassword).apply()
+
+            startActivity(intent)
+
         }
 
 
-
-
     }
-
-
-
-
 }

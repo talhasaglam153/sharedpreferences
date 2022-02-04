@@ -7,11 +7,13 @@ import android.os.Bundle
 import com.tcoding.loginscreensharedpreferences.databinding.ActivityHomeScreenBinding
 
 class HomeScreen : AppCompatActivity() {
-    lateinit var binding: ActivityHomeScreenBinding
-    lateinit var sharedPreferences: SharedPreferences
+
+    lateinit  var sharedPreferences: SharedPreferences
+    lateinit var binding : ActivityHomeScreenBinding
     val FILE_NAME = "com.tcoding.loginscreensharedpreferences"
     val USERNAME = "username"
     val PASSWORD = "password"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeScreenBinding.inflate(layoutInflater)
@@ -19,14 +21,21 @@ class HomeScreen : AppCompatActivity() {
 
         sharedPreferences = this.getSharedPreferences(FILE_NAME, MODE_PRIVATE)
 
+        val gelenUsername: String? = sharedPreferences.getString(USERNAME, null)
+        val gelenPassword: String? = sharedPreferences.getString(PASSWORD, null)
 
-        binding.textViewUsername.text  = sharedPreferences.getString(USERNAME,"")
-        binding.textViewPassword.text  = sharedPreferences.getString(PASSWORD,"")
+
+        binding.textViewUsername.text = gelenUsername
+        binding.textViewPassword.text = gelenPassword
 
         binding.buttonCikis.setOnClickListener {
             sharedPreferences.edit().clear().apply()
-            startActivity(Intent(applicationContext,MainActivity::class.java))
+            val intent = Intent(applicationContext,MainActivity::class.java)
+            startActivity(intent)
         }
+
+
+
 
 
     }
